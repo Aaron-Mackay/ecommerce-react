@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "goldenshoereact",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Projects\\golden-shoe\\golden-shoe-react\\amplify\\backend\\api\\goldenshoereact\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
