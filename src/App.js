@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import './App.css';
 
-import Products from './Components/Products';
-import NavBar from './Components/NavBar';
-import Filters from './Components/Filters';
-import Chat from './Components/Chat';
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import ProductsPage from "./Components/ProductsPage";
+import NavBar from "./Components/NavBar";
+import ProductPage from "./Components/ProductPage";
 
-function App()
+const App = () =>
 {
-    const products = [ // todo replace with db call
+    const allProducts = [ // todo replace with db call
         {
             id: 1,
             item: "shoe",
@@ -30,68 +30,17 @@ function App()
         }
     ]
     
-    const getAvailableSizes = () =>
-    {
-        const possibleSizes = [];
-        products.forEach(product =>
-        {
-            possibleSizes.push(...Object.entries(product.stockLevels).map(x => x[0]))
-        })
-        return [...new Set(possibleSizes)]
-    }
-    
-    let initialFilters = {
-        sizes: getAvailableSizes(),
-        price: {
-            max: null,
-            min: null
-        }
-    }
-    
-    const [visibleProducts, setVisibleProducts] = useState(products)
-    const [selectedFilters, setSelectedFilters] = useState(initialFilters)
-    
-    const getFilteredProducts = (filters) =>
-    {
-        const filteredProducts = [];
-        products.filter(product =>
-        {
-            
-            for(const size in product.stockLevels)
-            {
-                for(const sizeFilter of filters.sizes)
-                {
-                    if(size === sizeFilter && product.stockLevels[size] > 0)
-                    {
-                        filteredProducts.push(product)
-                        return
-                    }
-                }
-            }
-        })
-        return filteredProducts.filter(product =>
-        {
-            const price = (product.salePrice || product.price);
-            const isBelowMax = filters.max ? (price <= filters.max) : true;
-            const isAboveMin = filters.min ? (price >= filters.min) : true;
-            return (isBelowMax && isAboveMin)
-        })
-    }
-    
-    const onSaveFilters = (newFiltersObj) =>
-    {
-        console.log(newFiltersObj)
-        setSelectedFilters(newFiltersObj);
-        setVisibleProducts(getFilteredProducts(newFiltersObj))
+    const getProduct = ( id ) => {
+        return allProducts.find( product => product.id.toString(10) === id)
     }
     
     return (
-            <div className="App-header">
-                <NavBar/>
-                <Filters onSaveFilters={onSaveFilters} filters={selectedFilters} possibleSizes={getAvailableSizes()}/>
-                <Products products={visibleProducts} filters={selectedFilters}/>
-                <Chat/>
-            </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/product/:id" element={<ProductPage getProduct={getProduct}/>}/>
+                    <Route path="/" element={<ProductsPage allProducts={allProducts}/>}/>
+                </Routes>
+            </BrowserRouter>
     );
 }
 

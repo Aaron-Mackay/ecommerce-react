@@ -1,6 +1,6 @@
 // import './NavBar.css';
 
-function NavBar(props) {
+const NavBar = (props) => {
     return (
             <div className='navBar'>
                 

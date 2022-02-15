@@ -1,16 +1,21 @@
 // import './Products.css';
 import ProductCard from "./ProductCard";
 
-function Products(props)
+const Products = ({products}) =>
 {
-    console.log(props.products)
+    console.log(products)
     
     return (
             <div className='products'>
-                {props.products.length > 0 ?
-                        props.products.map(product =>
+                {products.length > 0 ?
+                        products.map(product =>
                                 {
-                                    return <ProductCard item={product.item} price={product.price} salePrice={product.salePrice} stockLevels={product.stockLevels} key={product.id}/>
+                                    return <ProductCard item={product.item}
+                                                        price={product.price}
+                                                        salePrice={product.salePrice}
+                                                        stockLevels={product.stockLevels}
+                                                        id={product.id}
+                                                        key={product.id}/>
                                 }
                         )
                         : "No products match your filters"}

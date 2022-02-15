@@ -1,11 +1,11 @@
 import './Filters.css';
 import {useState} from "react";
 
-function Filters(props)
+const Filters = ({possibleSizes, onSaveFilters}) =>
 {
     const [enteredMax, setEnteredMax] = useState('')
     const [enteredMin, setEnteredMin] = useState('')
-    const [enteredSizes, setEnteredSizes] = useState(props.possibleSizes)
+    const [enteredSizes, setEnteredSizes] = useState(possibleSizes)
     
     const maxChangeHandler = (event) =>
     {
@@ -37,7 +37,7 @@ function Filters(props)
             sizes: enteredSizes
         }
         console.log(filtersDataObject)
-        props.onSaveFilters(filtersDataObject);
+        onSaveFilters(filtersDataObject);
     }
     
     const getCheckboxStatus = ( size ) => {
@@ -56,7 +56,7 @@ function Filters(props)
                         <input type='number' value={enteredMin} onChange={minChangeHandler}/>
                     </div>
                     <div className='filters__control'>
-                        {props.possibleSizes.map((size, i) =>
+                        {possibleSizes.map((size, i) =>
                         {
                             return <div key={i}>
                                 <label htmlFor={size}>{size}</label>

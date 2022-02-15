@@ -1,6 +1,6 @@
 // import './Chat.css';
 
-function Chat(props) {
+const Chat = (props) => {
     return (
             <div className='chat'>
                 
