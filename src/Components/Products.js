@@ -1,12 +1,10 @@
-// import './Products.css';
+import './Products.css';
 import ProductCard from "./ProductCard";
 
 const Products = ({products}) =>
 {
-    console.log(products)
-    
     return (
-            <div className='products'>
+            <div className='products-grid'>
                 {products.length > 0 ?
                         products.map(product =>
                                 {

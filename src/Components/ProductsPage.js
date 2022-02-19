@@ -1,36 +1,13 @@
 import React, {useState} from 'react';
-// import './ProductsPage.css';
+import './ProductsPage.css';
 
 import Products from './Products';
 import NavBar from './NavBar';
 import Filters from './Filters';
 import Chat from './Chat';
-import {Route, Router, Switch} from "react-router-dom";
 
-const ProductsPage = () =>
+const ProductsPage = ({allProducts: products}) =>
 {
-    const products = [ // todo replace with db call
-        {
-            id: 1,
-            item: "shoe",
-            price: 30,
-            salePrice: 20,
-            stockLevels: {
-                "9": 2,
-                "10": 1
-            }
-        },
-        {
-            id: 2,
-            item: "hat",
-            price: 10,
-            stockLevels: {
-                "m": 1,
-                "l": 2
-            }
-        }
-    ]
-    
     const getAvailableSizes = () =>
     {
         const possibleSizes = [];
@@ -65,10 +42,11 @@ const ProductsPage = () =>
                     if(size === sizeFilter && product.stockLevels[size] > 0)
                     {
                         filteredProducts.push(product)
-                        return
+                        return true
                     }
                 }
             }
+            return false
         })
         return filteredProducts.filter(product =>
         {
@@ -87,10 +65,10 @@ const ProductsPage = () =>
     }
     
     return (
-            <div className="App-header">
-                <NavBar/>
-                <Filters onSaveFilters={onSaveFilters} filters={selectedFilters} possibleSizes={getAvailableSizes()}/>
-                <Products products={visibleProducts} filters={selectedFilters}/>
+            <div className="products-page">
+                <NavBar className="navBar"/>
+                <Filters className="filters" onSaveFilters={onSaveFilters} filters={selectedFilters} possibleSizes={getAvailableSizes()}/>
+                <Products className="products" products={visibleProducts} filters={selectedFilters}/>
                 <Chat/>
             </div>
     );

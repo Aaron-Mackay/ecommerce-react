@@ -1,43 +1,127 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createProduct = /* GraphQL */ `
+  mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createProduct(input: $input, condition: $condition) {
       id
-      name
+      item
       description
+      price
+      salePrice
+      stockLevels {
+        items {
+          id
+          productId
+          size
+          stock
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateProduct = /* GraphQL */ `
+  mutation UpdateProduct(
+    $input: UpdateProductInput!
+    $condition: ModelProductConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateProduct(input: $input, condition: $condition) {
       id
-      name
+      item
       description
+      price
+      salePrice
+      stockLevels {
+        items {
+          id
+          productId
+          size
+          stock
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteProduct = /* GraphQL */ `
+  mutation DeleteProduct(
+    $input: DeleteProductInput!
+    $condition: ModelProductConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteProduct(input: $input, condition: $condition) {
       id
-      name
+      item
       description
+      price
+      salePrice
+      stockLevels {
+        items {
+          id
+          productId
+          size
+          stock
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createStockLevel = /* GraphQL */ `
+  mutation CreateStockLevel(
+    $input: CreateStockLevelInput!
+    $condition: ModelStockLevelConditionInput
+  ) {
+    createStockLevel(input: $input, condition: $condition) {
+      id
+      productId
+      size
+      stock
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateStockLevel = /* GraphQL */ `
+  mutation UpdateStockLevel(
+    $input: UpdateStockLevelInput!
+    $condition: ModelStockLevelConditionInput
+  ) {
+    updateStockLevel(input: $input, condition: $condition) {
+      id
+      productId
+      size
+      stock
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteStockLevel = /* GraphQL */ `
+  mutation DeleteStockLevel(
+    $input: DeleteStockLevelInput!
+    $condition: ModelStockLevelConditionInput
+  ) {
+    deleteStockLevel(input: $input, condition: $condition) {
+      id
+      productId
+      size
+      stock
       createdAt
       updatedAt
     }

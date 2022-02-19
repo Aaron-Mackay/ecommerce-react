@@ -1,34 +1,109 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+export const onCreateProduct = /* GraphQL */ `
+  subscription OnCreateProduct {
+    onCreateProduct {
       id
-      name
+      item
       description
+      price
+      salePrice
+      stockLevels {
+        items {
+          id
+          productId
+          size
+          stock
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+export const onUpdateProduct = /* GraphQL */ `
+  subscription OnUpdateProduct {
+    onUpdateProduct {
       id
-      name
+      item
       description
+      price
+      salePrice
+      stockLevels {
+        items {
+          id
+          productId
+          size
+          stock
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+export const onDeleteProduct = /* GraphQL */ `
+  subscription OnDeleteProduct {
+    onDeleteProduct {
       id
-      name
+      item
       description
+      price
+      salePrice
+      stockLevels {
+        items {
+          id
+          productId
+          size
+          stock
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateStockLevel = /* GraphQL */ `
+  subscription OnCreateStockLevel {
+    onCreateStockLevel {
+      id
+      productId
+      size
+      stock
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateStockLevel = /* GraphQL */ `
+  subscription OnUpdateStockLevel {
+    onUpdateStockLevel {
+      id
+      productId
+      size
+      stock
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteStockLevel = /* GraphQL */ `
+  subscription OnDeleteStockLevel {
+    onDeleteStockLevel {
+      id
+      productId
+      size
+      stock
       createdAt
       updatedAt
     }

@@ -1,46 +1,41 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
-import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+
 import ProductsPage from "./Components/ProductsPage";
-import NavBar from "./Components/NavBar";
 import ProductPage from "./Components/ProductPage";
+import {fetchWarehouseData, generateWarehouse, resetWarehouse} from "./databaseFunctions";
 
 const App = () =>
 {
-    const allProducts = [ // todo replace with db call
-        {
-            id: 1,
-            item: "shoe",
-            price: 30,
-            salePrice: 20,
-            stockLevels: {
-                "9": 2,
-                "10": 1
-            }
-        },
-        {
-            id: 2,
-            item: "hat",
-            price: 10,
-            stockLevels: {
-                "m": 1,
-                "l": 2
-            }
-        }
-    ]
+    const [allProducts, setAllProducts] = useState([])
     
-    const getProduct = ( id ) => {
-        return allProducts.find( product => product.id.toString(10) === id)
+    useEffect(() =>
+    {
+        fetchWarehouseData()
+        .then(setAllProducts)
+    }, []);
+
+    const getProduct = (id) =>
+    {
+        return allProducts.find(product => product.id.toString(10) === id)
+    }
+    
+    const setWarehouseFromLocal = () => {
+        setAllProducts(generateWarehouse())
     }
     
     return (
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/product/:id" element={<ProductPage getProduct={getProduct}/>}/>
-                    <Route path="/" element={<ProductsPage allProducts={allProducts}/>}/>
-                </Routes>
-            </BrowserRouter>
+            <div>
+                <button onClick={setWarehouseFromLocal}>Reset DB</button>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/product/:id" element={<ProductPage getProduct={getProduct}/>}/>
+                        <Route path="/" element={<ProductsPage allProducts={allProducts}/>}/>
+                    </Routes>
+                </BrowserRouter>
+            </div>
     );
 }
 
