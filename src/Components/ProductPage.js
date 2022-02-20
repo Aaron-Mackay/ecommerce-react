@@ -31,7 +31,7 @@ const ProductPage = ({ getProduct, addToBasket }) => {
                     return <Dropdown.Item href="#/action-1" key={i} eventKey={size} disabled={stock === 0}>{size}</Dropdown.Item>
                 })}
             </DropdownButton>
-            <Button onClick={() => addToBasket(product, selectedSize)}>Add to basket</Button>
+            <Button onClick={() => addToBasket(product, selectedSize)} disabled={selectedSize === ""}>Add to basket</Button>
         </>
 
     );
