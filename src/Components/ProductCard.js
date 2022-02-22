@@ -4,7 +4,7 @@ import mockImage from '../mockImage.jpg'
 import {Link} from "react-router-dom";
 
 const ProductCard = ({item, price, stockLevels, salePrice, id}) => {
-    return (//todo onclick go to product page
+    return (
             <Link to={`/product/${id}`}>
                 <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={mockImage}/>

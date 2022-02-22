@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProductsPage from "./Components/ProductsPage";
 import ProductPage from "./Components/ProductPage";
 import { fetchWarehouseData, generateWarehouse, resetWarehouse } from "./databaseFunctions";
+import ShoppingCart from "./Components/ShoppingCart";
 
 const App = () => {
     const [allProducts, setAllProducts] = useState([])
@@ -65,28 +66,8 @@ const App = () => {
             <Button variant="primary" onClick={handleShow}>
                 Shopping Cart
             </Button>
-
-            <Offcanvas show={show} onHide={handleClose} placement={"end"}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Shopping Cart</Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    {basket.map((product, i) => {
-                        return <Card style={{ width: '18rem' }} key={i}>
-                            <Card.Img variant="top" src="holder.js/100px180" />
-                            <Card.Body>
-                                <Card.Title>{product.salePrice || product.price}</Card.Title>
-                                <Card.Text>
-                                    {product.item}
-                                    <br />
-                                    Size: {product.size}
-                                </Card.Text>
-                                <CloseButton onClick={() => removeFromBasket(product)} />
-                            </Card.Body>
-                        </Card>
-                    })}
-                </Offcanvas.Body>
-            </Offcanvas>
+            
+            <ShoppingCart show={show} handleClose={handleClose} basket={basket} removeFromBasket={removeFromBasket}/>
 
             <BrowserRouter>
                 <Routes>
