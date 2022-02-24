@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './ProductsPage.css';
 
 import Products from './Products';
@@ -20,14 +20,20 @@ const ProductsPage = ({allProducts: products}) =>
     
     let initialFilters = {
         sizes: getAvailableSizes(),
-        price: {
-            max: null,
-            min: null
-        }
+        max: '',
+        min: ''
     }
     
     const [visibleProducts, setVisibleProducts] = useState(products)
     const [selectedFilters, setSelectedFilters] = useState(initialFilters)
+    
+    useEffect(() =>
+    {
+        const updatedFilters = {...selectedFilters}
+        updatedFilters.sizes = getAvailableSizes()
+        setVisibleProducts(getFilteredProducts(updatedFilters))
+        setSelectedFilters(updatedFilters)
+    }, [products])
     
     const getFilteredProducts = (filters) =>
     {
@@ -64,10 +70,11 @@ const ProductsPage = ({allProducts: products}) =>
         setVisibleProducts(getFilteredProducts(newFiltersObj))
     }
     
+    const availableSizes = getAvailableSizes()
     return (
             <div className="products-page">
                 <NavBar className="navBar"/>
-                <Filters className="filters" onSaveFilters={onSaveFilters} filters={selectedFilters} possibleSizes={getAvailableSizes()}/>
+                <Filters className="filters" onSaveFilters={onSaveFilters} filters={selectedFilters} availableSizes={availableSizes}/>
                 <Products className="products" products={visibleProducts} filters={selectedFilters}/>
                 <Chat/>
             </div>

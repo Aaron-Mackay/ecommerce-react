@@ -7,7 +7,7 @@ const ProductCard = ({item, price, stockLevels, salePrice, id}) => {
     return (
             <Link to={`/product/${id}`}>
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={mockImage}/>
+                    {/*<Card.Img variant="top" src={mockImage}/>*/}
                     <Card.Body>
                         <Card.Title>{item}</Card.Title>
                         <Card.Text>

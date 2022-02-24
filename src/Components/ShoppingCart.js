@@ -1,16 +1,19 @@
-import React from "react";
+import React, {useContext} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Card from "react-bootstrap/Card";
 import CloseButton from "react-bootstrap/CloseButton";
+import {ShoppingCartContext} from "../ShoppingCartContext";
 
-const ShoppingCart = ({show, handleClose, basket, removeFromBasket}) =>
+const ShoppingCart = ({show, handleClose}) =>
 {
+    const {shoppingCart, removeFromShoppingCart} = useContext(ShoppingCartContext)
+    
     return <Offcanvas show={show} onHide={handleClose} placement={"end"}>
         <Offcanvas.Header closeButton>
             <Offcanvas.Title>Shopping Cart</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            {basket.map((product, i) =>
+            {shoppingCart.map((product, i) =>
             {
                 return <Card style={{width: '18rem'}} key={i}>
                     <Card.Img variant="top" src="holder.js/100px180"/>
@@ -21,7 +24,7 @@ const ShoppingCart = ({show, handleClose, basket, removeFromBasket}) =>
                             <br/>
                             Size: {product.size}
                         </Card.Text>
-                        <CloseButton onClick={() => removeFromBasket(product)}/>
+                        <CloseButton onClick={() => removeFromShoppingCart(product)}/>
                     </Card.Body>
                 </Card>
             })}

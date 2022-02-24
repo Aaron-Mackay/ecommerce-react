@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 
-const Filters = ({ possibleSizes, onSaveFilters }) => {
-    const [enteredMax, setEnteredMax] = useState('')
-    const [enteredMin, setEnteredMin] = useState('')
-    const [enteredSizes, setEnteredSizes] = useState(possibleSizes)
+const Filters = ({ availableSizes, onSaveFilters, filters }) => {
+    const [enteredMax, setEnteredMax] = useState(filters.max)
+    const [enteredMin, setEnteredMin] = useState(filters.min)
+    const [enteredSizes, setEnteredSizes] = useState(filters.sizes)
 
     const submitHandler = () => {
         const filtersDataObject = {
@@ -21,6 +21,10 @@ const Filters = ({ possibleSizes, onSaveFilters }) => {
     useEffect(() => {
         submitHandler()
     }, [enteredSizes, enteredMax, enteredMin])
+    
+    // useEffect(() => {
+    //     setEnteredSizes(availableSizes)
+    // }, [])
 
     const maxChangeHandler = (event) => {
         setEnteredMax(event.target.value)
@@ -28,8 +32,6 @@ const Filters = ({ possibleSizes, onSaveFilters }) => {
     const minChangeHandler = (event) => {
         setEnteredMin(event.target.value)
     }
-
-
 
     const sizesChangeHandler = async (val) => {
         setEnteredSizes(val)
@@ -46,14 +48,13 @@ const Filters = ({ possibleSizes, onSaveFilters }) => {
                 <input type='number' value={enteredMin} onChange={minChangeHandler} />
             </div>
             <ToggleButtonGroup type="checkbox" value={enteredSizes} onChange={sizesChangeHandler}>
-                {possibleSizes.map((size, i) => {
-                    return <ToggleButton key={i} id={`tbg-btn-${i}`} value={size}>
+                {availableSizes.map((size, i) => {
+                    return <ToggleButton key={i} id={`tbg-btn-${i}`} value={size} checked={true}>
                         {size}
                     </ToggleButton>
                 })}
             </ToggleButtonGroup>
         </div>
-
     );
 }
 
