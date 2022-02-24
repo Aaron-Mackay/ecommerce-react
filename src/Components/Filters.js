@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 
-const Filters = ({ availableSizes, onSaveFilters, filters }) => {
+const Filters = ({ availableSizes, onSaveFilters, filters, getAvailableSizes }) => {
     const [enteredMax, setEnteredMax] = useState(filters.max)
     const [enteredMin, setEnteredMin] = useState(filters.min)
     const [enteredSizes, setEnteredSizes] = useState(filters.sizes)
@@ -47,7 +47,7 @@ const Filters = ({ availableSizes, onSaveFilters, filters }) => {
                 <label>Min Price</label>
                 <input type='number' value={enteredMin} onChange={minChangeHandler} />
             </div>
-            <ToggleButtonGroup type="checkbox" value={enteredSizes} onChange={sizesChangeHandler}>
+            <ToggleButtonGroup type="checkbox" value={enteredSizes === undefined ? getAvailableSizes() : enteredSizes} onChange={sizesChangeHandler}>
                 {availableSizes.map((size, i) => {
                     return <ToggleButton key={i} id={`tbg-btn-${i}`} value={size} checked={true}>
                         {size}

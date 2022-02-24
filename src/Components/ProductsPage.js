@@ -18,41 +18,43 @@ const ProductsPage = ({allProducts: products}) =>
         return [...new Set(possibleSizes)]
     }
     
-    let initialFilters = {
-        sizes: getAvailableSizes(),
-        max: '',
-        min: ''
-    }
-    
     const [visibleProducts, setVisibleProducts] = useState(products)
-    const [selectedFilters, setSelectedFilters] = useState(initialFilters)
+    const [selectedFilters, setSelectedFilters] = useState({})
     
     useEffect(() =>
     {
         const updatedFilters = {...selectedFilters}
-        updatedFilters.sizes = getAvailableSizes()
+        const availableSizes = getAvailableSizes()
+        updatedFilters.sizes = availableSizes
         setVisibleProducts(getFilteredProducts(updatedFilters))
-        setSelectedFilters(updatedFilters)
+        setSelectedFilters(prevState => ({
+            ...prevState,
+            sizes: [...availableSizes]
+    }))
     }, [products])
     
     const getFilteredProducts = (filters) =>
     {
         const filteredProducts = [];
-        products.filter(product =>
+        products.forEach(product =>
         {
-            
+            if (!Array.isArray(filters))
+            {
+                filteredProducts.push(product)
+                return
+            }
             for(const size in product.stockLevels)
             {
+                
                 for(const sizeFilter of filters.sizes)
                 {
                     if(size === sizeFilter && product.stockLevels[size] > 0)
                     {
                         filteredProducts.push(product)
-                        return true
+                        return
                     }
                 }
             }
-            return false
         })
         return filteredProducts.filter(product =>
         {
@@ -74,7 +76,7 @@ const ProductsPage = ({allProducts: products}) =>
     return (
             <div className="products-page">
                 <NavBar className="navBar"/>
-                <Filters className="filters" onSaveFilters={onSaveFilters} filters={selectedFilters} availableSizes={availableSizes}/>
+                <Filters className="filters" onSaveFilters={onSaveFilters} filters={selectedFilters} availableSizes={availableSizes} getAvailableSizes={getAvailableSizes}/>
                 <Products className="products" products={visibleProducts} filters={selectedFilters}/>
                 <Chat/>
             </div>
