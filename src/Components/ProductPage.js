@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import { LinkContainer } from 'react-router-bootstrap'
 
 import { useParams } from "react-router-dom";
 import {ShoppingCartContext} from "../ShoppingCartContext";
@@ -23,7 +24,9 @@ const ProductPage = ({ getProduct }) => {
     return (
         <>
             <Breadcrumb>
-                <Breadcrumb.Item href="/">Products</Breadcrumb.Item>
+                <LinkContainer to={"/"}>
+                    <Breadcrumb.Item>Products</Breadcrumb.Item>
+                </LinkContainer>
                 <Breadcrumb.Item active>
                     {product.item}
                 </Breadcrumb.Item>
