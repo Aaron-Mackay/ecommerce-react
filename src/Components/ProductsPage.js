@@ -5,6 +5,8 @@ import Products from './Products';
 import NavBar from './NavBar';
 import Filters from './Filters';
 import Chat from './Chat';
+import {LinkContainer} from "react-router-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 const ProductsPage = ({allProducts: products}) =>
 {
@@ -19,34 +21,36 @@ const ProductsPage = ({allProducts: products}) =>
     }
     
     const [visibleProducts, setVisibleProducts] = useState(products)
-    const [selectedFilters, setSelectedFilters] = useState({})
+    const [enteredMax, setEnteredMax] = useState('')
+    const [enteredMin, setEnteredMin] = useState('')
+    const [enteredSizes, setEnteredSizes] = useState([])
+    const filtersObject = {
+        enteredMax, setEnteredMax,
+        enteredMin, setEnteredMin,
+        enteredSizes, setEnteredSizes
+    }
     
     useEffect(() =>
     {
-        const updatedFilters = {...selectedFilters}
+        setVisibleProducts(getFilteredProducts())
+    },[enteredMax, enteredMin, enteredSizes])
+    
+    useEffect(() =>
+    {
         const availableSizes = getAvailableSizes()
-        updatedFilters.sizes = availableSizes
-        setVisibleProducts(getFilteredProducts(updatedFilters))
-        setSelectedFilters(prevState => ({
-            ...prevState,
-            sizes: [...availableSizes]
-    }))
+        setVisibleProducts(getFilteredProducts())
+        setEnteredSizes(availableSizes)
     }, [products])
     
-    const getFilteredProducts = (filters) =>
+    const getFilteredProducts = () =>
     {
         const filteredProducts = [];
         products.forEach(product =>
         {
-            if (!Array.isArray(filters))
-            {
-                filteredProducts.push(product)
-                return
-            }
             for(const size in product.stockLevels)
             {
                 
-                for(const sizeFilter of filters.sizes)
+                for(const sizeFilter of enteredSizes)
                 {
                     if(size === sizeFilter && product.stockLevels[size] > 0)
                     {
@@ -59,27 +63,27 @@ const ProductsPage = ({allProducts: products}) =>
         return filteredProducts.filter(product =>
         {
             const price = (product.salePrice || product.price);
-            const isBelowMax = filters.max ? (price <= filters.max) : true;
-            const isAboveMin = filters.min ? (price >= filters.min) : true;
+            const isBelowMax = enteredMax ? (price <= enteredMax) : true;
+            const isAboveMin = enteredMin ? (price >= enteredMin) : true;
             return (isBelowMax && isAboveMin)
         })
     }
     
-    const onSaveFilters = (newFiltersObj) =>
-    {
-        console.log(newFiltersObj)
-        setSelectedFilters(newFiltersObj);
-        setVisibleProducts(getFilteredProducts(newFiltersObj))
-    }
-    
-    const availableSizes = getAvailableSizes()
     return (
+            <>
+                <Breadcrumb>
+                    <Breadcrumb.Item active>
+                        Products
+                    </Breadcrumb.Item>
+                </Breadcrumb>
             <div className="products-page">
+                
                 <NavBar className="navBar"/>
-                <Filters className="filters" onSaveFilters={onSaveFilters} filters={selectedFilters} availableSizes={availableSizes} getAvailableSizes={getAvailableSizes}/>
-                <Products className="products" products={visibleProducts} filters={selectedFilters}/>
+                <Filters className="filters" filtersObject={filtersObject} availableSizes={getAvailableSizes()}/>
+                <Products className="products" products={visibleProducts}/>
                 <Chat/>
             </div>
+            </>
     );
 }
 

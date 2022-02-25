@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 
 import Button from 'react-bootstrap/Button';
@@ -11,11 +11,19 @@ import ShoppingCart from "./Components/ShoppingCart";
 
 const App = () => {
     const [allProducts, setAllProducts] = useState([])
-    const [basket, setBasket] = useState([])
+    const [basket, setBasket] = useState(() => {
+        // getting stored value
+        return JSON.parse(localStorage.getItem("basket")) || [];
+    });
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
+    useEffect(() =>
+    {
+        localStorage.setItem("basket", JSON.stringify(basket))
+    }, [basket])
 
     // useEffect(() =>
     // {

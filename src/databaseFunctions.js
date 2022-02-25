@@ -44,9 +44,9 @@ export const generateWarehouse = () =>
 export const resetWarehouse = async () =>
 {
     await fetchProducts()
-    .then(products =>
+    .then(fetchedProducts =>
     {
-        products.forEach(product =>
+        fetchedProducts.forEach(product =>
         {
             console.log(product)
             deleteProduct(product.id)
