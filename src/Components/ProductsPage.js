@@ -77,8 +77,6 @@ const ProductsPage = ({allProducts: products}) =>
                     </Breadcrumb.Item>
                 </Breadcrumb>
             <div className="products-page">
-                
-                <NavBar className="navBar"/>
                 <Filters className="filters" filtersObject={filtersObject} availableSizes={getAvailableSizes()}/>
                 <Products className="products" products={visibleProducts}/>
                 <Chat/>
