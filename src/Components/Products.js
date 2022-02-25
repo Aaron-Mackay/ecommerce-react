@@ -18,7 +18,8 @@ const Products = ({products}) =>
         );
     }
     
-    useEffect(() => {
+    useEffect(() =>
+    {
         setActivePage(1)
     }, [products])
     
@@ -26,7 +27,10 @@ const Products = ({products}) =>
             <>
                 <div>
                     {products.length > 0 ?
-                            <div>{products.length} products found.</div>
+                            <div>
+                                {(PRODUCTS_PER_PAGE * (activePage - 1) + 1)}
+                                -{Math.min(PRODUCTS_PER_PAGE * activePage, products.length)} of {products.length} products found.
+                            </div>
                             : ""}
                 </div>
                 <Pagination>

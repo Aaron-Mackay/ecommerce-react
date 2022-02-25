@@ -1,14 +1,19 @@
 import './Filters.css';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const Filters = ({availableSizes, filtersObject}) =>
 {
     const {
         enteredMax, setEnteredMax,
         enteredMin, setEnteredMin,
-        enteredSizes, setEnteredSizes
+        enteredSizes, setEnteredSizes,
+        enteredSort, setEnteredSort,
+        enteredSaleSwitch, setEnteredSaleSwitch
     } = filtersObject
+    
     
     const maxChangeHandler = (event) =>
     {
@@ -21,7 +26,19 @@ const Filters = ({availableSizes, filtersObject}) =>
     
     const sizesChangeHandler = async(val) =>
     {
+        console.log(val)
         setEnteredSizes(val)
+    };
+    
+    const sortChangeHandler = async(val) =>
+    {
+        setEnteredSort(val)
+    };
+    
+    const saleChangeHandler = async(val) =>
+    {
+        console.log(val)
+        setEnteredSaleSwitch(val)
     };
     
     return ( // todo validate input is non-negative, max higher than min
@@ -41,6 +58,19 @@ const Filters = ({availableSizes, filtersObject}) =>
                             {size}
                         </ToggleButton>
                     })}
+                </ToggleButtonGroup>
+                <DropdownButton id="dropdown-basic-button" title={"Sort by: " + enteredSort} onSelect={sortChangeHandler}>
+                    {[
+                        'Sale','Price: High to Low', 'Price: Low to High'
+                    ].map((sortString, i) =>
+                    {
+                        return <Dropdown.Item key={i} eventKey={sortString}>{sortString}</Dropdown.Item>
+                    })}
+                </DropdownButton>
+                <ToggleButtonGroup type="checkbox" onChange={saleChangeHandler} value={enteredSaleSwitch}>
+                        <ToggleButton id={1} value={true}>
+                            Sale Products Only
+                        </ToggleButton>
                 </ToggleButtonGroup>
             </div>
     );
