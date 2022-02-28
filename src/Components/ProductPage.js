@@ -15,7 +15,6 @@ const ProductPage = ({ getProduct, addToBasket }) => {
     const product = getProduct(id)
 
     const selectHandler = (size) => {
-        console.log(size)
         setSelectedSize(size)
     }
 

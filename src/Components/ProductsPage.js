@@ -2,10 +2,8 @@ import React, {useEffect, useState} from 'react';
 import './ProductsPage.css';
 
 import Products from './Products';
-import NavBar from './NavBar';
 import Filters from './Filters';
 import Chat from './Chat';
-import {LinkContainer} from "react-router-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import cloneDeep from "lodash/cloneDeep";
 
@@ -21,15 +19,14 @@ const ProductsPage = ({allProducts: products}) =>
         return [...new Set(possibleSizes)]
     }
     
+    const [unfilteredPriceLimits, setUnfilteredPriceLimits] = useState([0, 100])
     const [visibleProducts, setVisibleProducts] = useState(products)
-    const [enteredMax, setEnteredMax] = useState('')
-    const [enteredMin, setEnteredMin] = useState('')
+    const [priceRangeValues, setPriceRangeValues] = useState([...unfilteredPriceLimits])
     const [enteredSizes, setEnteredSizes] = useState([])
     const [enteredSort, setEnteredSort] = useState('Sale')
     const [enteredSaleSwitch, setEnteredSaleSwitch] = useState([])
     const filtersObject = {
-        enteredMax, setEnteredMax,
-        enteredMin, setEnteredMin,
+        priceRangeValues, setPriceRangeValues,
         enteredSizes, setEnteredSizes,
         enteredSort, setEnteredSort,
         enteredSaleSwitch, setEnteredSaleSwitch
@@ -38,23 +35,43 @@ const ProductsPage = ({allProducts: products}) =>
     useEffect(() =>
     {
         setVisibleProducts(getFilteredProducts())
-    },[enteredMax, enteredMin, enteredSizes, enteredSort, enteredSaleSwitch])
+    },[priceRangeValues, enteredSizes, enteredSort, enteredSaleSwitch])
+    
+    // useEffect(() => {
+    //     setPriceRangeValues(getUpdatedPriceRangeValues(visibleProducts))
+    // }, [enteredSizes, enteredSort, enteredSaleSwitch])
     
     useEffect(() =>
     {
         const availableSizes = getAvailableSizes()
+        const priceLimits = getPriceLimits(products)
         setVisibleProducts(getFilteredProducts())
         setEnteredSizes(availableSizes)
+        setPriceRangeValues(priceLimits)
+        setUnfilteredPriceLimits(priceLimits)
     }, [products])
     
     const getFilteredProducts = () =>
     {
-
         const sizeFilteredProducts = filterForSize(products, enteredSizes)
         const saleFilteredProducts = filterForSale(sizeFilteredProducts, enteredSaleSwitch)
-        const sizeAndPriceFilteredProducts = filterForPrice(saleFilteredProducts, enteredMin, enteredMax)
-        const sortedSizeAndPriceFilteredProducts = sortProducts(sizeAndPriceFilteredProducts, enteredSort)
-        return sortedSizeAndPriceFilteredProducts;
+        const sizeAndPriceFilteredProducts = filterForPrice(saleFilteredProducts, priceRangeValues)
+        return sortProducts(sizeAndPriceFilteredProducts, enteredSort);
+    }
+    
+    const getPriceLimits = (productsArr) =>
+    {
+        if (productsArr.length === 0) return []
+        const max = Math.max.apply(Math, productsArr.map(product => product.salePrice || product.price))
+        const min = Math.min.apply(Math, productsArr.map(product => product.salePrice || product.price))
+        return [min, max];
+    }
+    
+    const getUpdatedPriceRangeValues = (productsArr) =>
+    {
+        let [minLimit, maxLimit] = getPriceLimits(productsArr)
+        let [currMin, currMax] = priceRangeValues
+        return [Math.min(minLimit, currMin), Math.max(maxLimit, currMax)];
     }
     
     return (
@@ -65,7 +82,9 @@ const ProductsPage = ({allProducts: products}) =>
                     </Breadcrumb.Item>
                 </Breadcrumb>
             <div className="products-page">
-                <Filters className="filters" filtersObject={filtersObject} availableSizes={getAvailableSizes()}/>
+                <Filters className="filters" filtersObject={filtersObject}
+                         availableSizes={getAvailableSizes()}
+                         unfilteredPriceLimits={unfilteredPriceLimits}/>
                 <Products className="products" products={visibleProducts}/>
                 <Chat/>
             </div>
@@ -94,8 +113,9 @@ const filterForSize = (products, sizeFilterArr) =>
     return filteredProducts
 }
 
-const filterForPrice = (products, priceMin, priceMax) =>
+const filterForPrice = (products, priceRange) =>
 {
+    const [priceMin, priceMax] = priceRange
     return products.filter(product =>
     {
         const price = (product.salePrice || product.price);
