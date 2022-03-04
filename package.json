@@ -12,6 +12,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
+    "react-chat-window": "^1.2.1",
     "react-dom": "^17.0.2",
     "react-range": "^1.8.12",
     "react-router-bootstrap": "^0.26.0",

@@ -37,10 +37,6 @@ const ProductsPage = ({allProducts: products}) =>
         setVisibleProducts(getFilteredProducts())
     },[priceRangeValues, enteredSizes, enteredSort, enteredSaleSwitch])
     
-    // useEffect(() => {
-    //     setPriceRangeValues(getUpdatedPriceRangeValues(visibleProducts))
-    // }, [enteredSizes, enteredSort, enteredSaleSwitch])
-    
     useEffect(() =>
     {
         const availableSizes = getAvailableSizes()

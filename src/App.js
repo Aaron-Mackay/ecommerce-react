@@ -9,6 +9,7 @@ import ProductPage from "./Components/ProductPage";
 import {fetchWarehouseData, generateWarehouse, resetWarehouse} from "./databaseFunctions";
 import ShoppingCart from "./Components/ShoppingCart";
 import {Container, Navbar} from "react-bootstrap";
+import {Launcher} from 'react-chat-window'
 
 const App = () =>
 {
@@ -97,6 +98,14 @@ const App = () =>
                         <Route path="/" element={<ProductsPage allProducts={allProducts}/>}/>
                     </Routes>
                 </BrowserRouter>
+                <Launcher
+                        agentProfile={{
+                            teamName: 'Customer Support',
+                            imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+                        }}
+                        messageList={[{author:'them', type: 'text', data: {text: "hello"}}]}
+                        showEmoji
+                />
             </>
     );
 }
