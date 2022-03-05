@@ -24,7 +24,7 @@ const Products = ({products}) =>
     }, [products])
     
     return (
-            <>
+            <div  className="products" >
                 <div>
                     {products.length > 0 ?
                             <div>
@@ -33,7 +33,7 @@ const Products = ({products}) =>
                             </div>
                             : ""}
                 </div>
-                <Pagination>
+                {/*<Pagination>*/}
                     <div className='products-grid'>
                         {products.length > 0 ?
                                 products
@@ -50,9 +50,9 @@ const Products = ({products}) =>
                                 )
                                 : "No products match your filters"}
                     </div>
-                </Pagination>
+                {/*</Pagination>*/}
                 <Pagination size="sm">{items}</Pagination>
-            </>
+            </div>
     );
 }
 

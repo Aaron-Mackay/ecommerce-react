@@ -80,14 +80,14 @@ const App = () =>
                 <Navbar bg="light" expand="lg">
                     <Container>
                         <Navbar.Brand href="#home">Golden Shoe</Navbar.Brand>
-                        <Navbar.Collapse className="justify-content-end">
+                        <div className="justify-content-end">
                             <Button variant="primary" onClick={setWarehouseFromLocal}>
                                 Reset DB
                             </Button>
                             <Button variant="primary" onClick={handleShow}>
                                 Shopping Cart
                             </Button>
-                        </Navbar.Collapse>
+                        </div>
                     </Container>
                 </Navbar>
                 <ShoppingCart show={show} handleClose={handleClose} basket={basket} removeFromBasket={removeFromBasket}/>

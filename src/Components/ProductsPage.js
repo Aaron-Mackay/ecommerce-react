@@ -35,7 +35,7 @@ const ProductsPage = ({allProducts: products}) =>
     useEffect(() =>
     {
         setVisibleProducts(getFilteredProducts())
-    },[priceRangeValues, enteredSizes, enteredSort, enteredSaleSwitch])
+    }, [priceRangeValues, enteredSizes, enteredSort, enteredSaleSwitch])
     
     useEffect(() =>
     {
@@ -57,17 +57,13 @@ const ProductsPage = ({allProducts: products}) =>
     
     const getPriceLimits = (productsArr) =>
     {
-        if (productsArr.length === 0) return []
+        if(productsArr.length === 0)
+        {
+            return []
+        }
         const max = Math.max.apply(Math, productsArr.map(product => product.salePrice || product.price))
         const min = Math.min.apply(Math, productsArr.map(product => product.salePrice || product.price))
         return [min, max];
-    }
-    
-    const getUpdatedPriceRangeValues = (productsArr) =>
-    {
-        let [minLimit, maxLimit] = getPriceLimits(productsArr)
-        let [currMin, currMax] = priceRangeValues
-        return [Math.min(minLimit, currMin), Math.max(maxLimit, currMax)];
     }
     
     return (
@@ -77,13 +73,13 @@ const ProductsPage = ({allProducts: products}) =>
                         Products
                     </Breadcrumb.Item>
                 </Breadcrumb>
-            <div className="products-page">
-                <Filters className="filters" filtersObject={filtersObject}
-                         availableSizes={getAvailableSizes()}
-                         unfilteredPriceLimits={unfilteredPriceLimits}/>
-                <Products className="products" products={visibleProducts}/>
+                <div className="products-page">
+                    <Filters filtersObject={filtersObject}
+                             availableSizes={getAvailableSizes()}
+                             unfilteredPriceLimits={unfilteredPriceLimits}/>
+                    <Products products={visibleProducts}/>
+                </div>
                 <Chat/>
-            </div>
             </>
     );
 }
@@ -128,27 +124,48 @@ const sortProducts = (products, sortBy) =>
     switch(sortBy)
     {
         case 'Sale':
-            sortFunction = (a, b) => {
-                if (a.salePrice && !b.salePrice) return -1
-                if (!a.salePrice && b.salePrice) return 1
+            sortFunction = (a, b) =>
+            {
+                if(a.salePrice && !b.salePrice)
+                {
+                    return -1
+                }
+                if(!a.salePrice && b.salePrice)
+                {
+                    return 1
+                }
                 return 0
             }
             break;
         case 'Price: High to Low':
-            sortFunction = (a, b) => {
+            sortFunction = (a, b) =>
+            {
                 const productAPrice = a.salePrice || a.price
                 const productBPrice = b.salePrice || b.price
-                if (productAPrice > productBPrice) return -1
-                if (productBPrice > productAPrice) return 1
+                if(productAPrice > productBPrice)
+                {
+                    return -1
+                }
+                if(productBPrice > productAPrice)
+                {
+                    return 1
+                }
                 return 0
             }
             break;
         case 'Price: Low to High':
-            sortFunction = (a, b) => {
+            sortFunction = (a, b) =>
+            {
                 const productAPrice = a.salePrice || a.price
                 const productBPrice = b.salePrice || b.price
-                if (productAPrice > productBPrice) return 1
-                if (productBPrice > productAPrice) return -1
+                if(productAPrice > productBPrice)
+                {
+                    return 1
+                }
+                if(productBPrice > productAPrice)
+                {
+                    return -1
+                }
                 return 0
             }
             break;
@@ -157,7 +174,8 @@ const sortProducts = (products, sortBy) =>
     return sortArray.sort(sortFunction)
 }
 
-const filterForSale = (products, filterSwitch) => {
+const filterForSale = (products, filterSwitch) =>
+{
     return (filterSwitch.length > 0) ? products.filter(product => product.salePrice) : products
 }
 
