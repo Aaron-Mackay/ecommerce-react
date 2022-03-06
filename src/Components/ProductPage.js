@@ -47,9 +47,12 @@ const ProductPage = ({getProduct, addToBasket}) =>
                             occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
                         <div className={'sizeBuy'}>
-                            <h3 className={'price'}>£{product.salePrice || product.price}<br/><del>{product.salePrice ? "£" + product.price : ""}</del></h3>
+                            <div className={'price'}>
+                                <h3>£{product.salePrice || product.price}</h3>&nbsp;
+                                <del>{product.salePrice ? "£" + product.price : ""}</del>
+                            </div>
                             <div className={'controls'}>
-                                <DropdownButton id="dropdown-basic-button" title={selectedSize || "Size"} onSelect={selectHandler}>
+                                <DropdownButton id="dropdown-basic-button" title={selectedSize || "Size"} onSelect={selectHandler} >
                                     {Object.entries(product.stockLevels).map(([size, stock], i) =>
                                     {
                                         return <Dropdown.Item href="#/action-1" key={i} eventKey={size} disabled={stock === 0}>{size}</Dropdown.Item>

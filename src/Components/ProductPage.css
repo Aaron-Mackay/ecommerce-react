@@ -24,25 +24,31 @@
     gap: 2em 1em;
 }
 
-.controls, .price {
+.price {
+    display: flex;
+    align-items: center;
     text-align: right;
+}
+
+.controls{
+    display: grid;
+    gap: 1em;
 }
 
 .product-header {
     text-align: center;
 }
 
+.dropdown-toggle {
+    width:100%
+}
 
 @media screen and (max-width: 600px) {
-    .filters {
-        position: relative;
-        width: auto;
-    }
-
-    .products-page {
+    .product-details {
         grid-template-columns: 1fr;
+        padding:1em;
         grid-template-areas:
-        "filters"
-        "products";
+    "productImage"
+    "productDesc"
     }
 }
