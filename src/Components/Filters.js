@@ -47,8 +47,8 @@ const Filters = ({availableSizes, filtersObject, unfilteredPriceLimits}) =>
                         })}
                     </ToggleButtonGroup>
                 </div>
-
-
+                
+                
                 <ToggleButtonGroup type="checkbox" onChange={saleChangeHandler} value={enteredSaleSwitch}>
                     <ToggleButton id={1} value={true}>
                         Sale Products Only

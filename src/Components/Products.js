@@ -24,33 +24,32 @@ const Products = ({products}) =>
     }, [products])
     
     return (
-            <div  className="products" >
+            <div className="products">
                 <div>
                     {products.length > 0 ?
-                            <div>
+                            <div style={{color: "midnightblue"}}>
                                 {(PRODUCTS_PER_PAGE * (activePage - 1) + 1)}
                                 -{Math.min(PRODUCTS_PER_PAGE * activePage, products.length)} of {products.length} products found.
                             </div>
                             : ""}
                 </div>
-                {/*<Pagination>*/}
-                    <div className='products-grid'>
-                        {products.length > 0 ?
-                                products
-                                .filter((x, i) => Math.ceil((i + 1) / PRODUCTS_PER_PAGE) === activePage)
-                                .map(product =>
-                                        {
-                                            return <ProductCard item={product.item}
-                                                                price={product.price}
-                                                                salePrice={product.salePrice}
-                                                                stockLevels={product.stockLevels}
-                                                                id={product.id}
-                                                                key={product.id}/>
-                                        }
-                                )
-                                : "No products match your filters"}
-                    </div>
-                {/*</Pagination>*/}
+                <div className='products-grid'>
+                    {products.length > 0 ?
+                            products
+                            .filter((x, i) => Math.ceil((i + 1) / PRODUCTS_PER_PAGE) === activePage)
+                            .map(product =>
+                                    {
+                                        return <ProductCard item={product.item}
+                                                            price={product.price}
+                                                            salePrice={product.salePrice}
+                                                            stockLevels={product.stockLevels}
+                                                            id={product.id}
+                                                            key={product.id}
+                                        imageUrl={product.imageUrl}/>
+                                    }
+                            )
+                            : "No products match your filters"}
+                </div>
                 <Pagination size="sm">{items}</Pagination>
             </div>
     );

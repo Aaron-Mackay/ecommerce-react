@@ -1,0 +1,48 @@
+.product-details {
+    padding: 3em 10em 10em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em 1em;
+    grid-template-areas:
+    "productImage productDesc"
+}
+
+.productImage {
+    grid-area: productImage;
+    width: 100%;
+}
+.productDesc {
+    grid-area: productDesc;
+}
+
+.sizeBuy {
+    padding: 5em;
+    grid-area: productDesc;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2em 1em;
+}
+
+.controls, .price {
+    text-align: right;
+}
+
+.product-header {
+    text-align: center;
+}
+
+
+@media screen and (max-width: 600px) {
+    .filters {
+        position: relative;
+        width: auto;
+    }
+
+    .products-page {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        "filters"
+        "products";
+    }
+}

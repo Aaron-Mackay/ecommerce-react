@@ -4,24 +4,24 @@ import mockImage from '../mockImage.jpg'
 import Badge from 'react-bootstrap/Badge'
 import {LinkContainer} from 'react-router-bootstrap'
 
-const ProductCard = ({item, price, stockLevels, salePrice, id}) =>
+const ProductCard = ({item, price, stockLevels, salePrice, id, imageUrl}) =>
 {
     return (
             <LinkContainer to={`/product/${id}`}>
                 <Card style={{width: '18rem'}} bg={'secondary'} text={'white'}>
-                    <Card.Img variant="top" src={mockImage}/>
+                    <Card.Img variant="top" src={imageUrl}/>
                     <Card.Body>
                         <Card.Title>
                             {item}
                             {salePrice ? <Badge bg="primary">On Sale</Badge> : ""}
                         </Card.Title>
                         <Card.Text>
-                            {Object.entries(stockLevels).map(item => item[0]).join(", ")}
+                            {Object.entries(stockLevels).filter(item => item[1] > 0).map(item => item[0]).join(", ")}
                         </Card.Text>
                     </Card.Body>
                     <Card.Body>
                         <Card.Text>
-                            £{salePrice || price}
+                            £{salePrice || price} &nbsp;
                             <del>{salePrice ? "£" + price : ""}</del>
                         </Card.Text>
                     </Card.Body>

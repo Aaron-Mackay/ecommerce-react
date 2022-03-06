@@ -1,14 +1,11 @@
 .products-page {
-    /* Photo by mnm.all on Unsplash */
-    background: url('https://images.unsplash.com/photo-1518176258769-f227c798150e') center;
-    background-size: cover;
-    padding: 4rem 2rem;
+    padding: 0rem 2rem;
 
     /* Grid styles */
     display: grid;
     grid-template-columns: 8em auto;
     grid-template-rows: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2em 1em;
+    gap: 2em 2em;
     grid-template-areas:
     "filters products";
 }
@@ -16,8 +13,7 @@
 .filters {
     grid-area: filters;
     /* Photo by mnm.all on Unsplash */
-    background: url('https://images.unsplash.com/photo-1518176258769-f227c798150e') center;
-    background-size: cover;
+    background-color: darkgrey;
     padding: 4rem 2rem;
     position: fixed;
     /* Grid styles */

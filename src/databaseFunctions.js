@@ -9,8 +9,8 @@ import {listProducts, listStockLevels} from "./graphql/queries";
 
 export const generateWarehouse = () =>
 {
-    const colours = ["black", "white", "pink", "red", "blue"]
-    const items = ["hat", "shoes", "boots", "scarf", "shirt", "jeans", "T-shirt"]
+    const colours = ["Black", "White", "Pink", "Red", "Blue"]
+    const items = ["Shoes"]//, "Boots", "Trainers", "Slippers", "Formal Shoes"]
     
     const products = [];
     
@@ -24,13 +24,18 @@ export const generateWarehouse = () =>
             newProduct.item = `${colour} ${item}`
             newProduct.price = newProduct.item.length * 5
             newProduct.salePrice = (count % 3 === 0) ? Math.round(newProduct.price / 2) : null
-
+            newProduct.imageUrl = 'https://picsum.photos/200'
+            // fetchProductImageUrl(newProduct.item)
+            // .then(src => {
+            //     newProduct.image = src
+            // })
+            
             const stockLevels = {}
-            for (let i = 1; i <= 3; i++)
+            for(let i = 1; i <= 3; i++)
             {
-                stockLevels[i] = count * newProduct.item.length + i
+                stockLevels[i] = 1
             }
-
+            
             newProduct.stockLevels = stockLevels
             products.push(newProduct)
             count++;
@@ -38,10 +43,11 @@ export const generateWarehouse = () =>
     }
     
     console.log(products)
+    
     return products
 }
 
-export const resetWarehouse = async () =>
+export const resetWarehouse = async() =>
 {
     await fetchProducts()
     .then(fetchedProducts =>
@@ -52,7 +58,7 @@ export const resetWarehouse = async () =>
             deleteProduct(product.id)
         })
     })
-
+    
     await fetchStockLevels()
     .then(stockLevels =>
     {
@@ -69,15 +75,15 @@ export const resetWarehouse = async () =>
         const cleanProduct = {...product}
         delete cleanProduct.stockLevels
         createProduct(cleanProduct)
-        .then(console.log("Created product ",product.item))
-        .catch(console.log("Failed to create product ",product.item))
+        .then(console.log("Created product ", product.item))
+        .catch(console.log("Failed to create product ", product.item))
     })
     products.forEach(product =>
     {
         const stockLevels = product.stockLevels
         Object.entries(stockLevels).forEach(stockLevel => createStockLevel(stockLevel, product.id)
-        .then(console.log("Created stocklevels for ",product.item))
-        .catch(console.log("Failed to create stocklevels for ",product.item)))
+        .then(console.log("Created stocklevels for ", product.item))
+        .catch(console.log("Failed to create stocklevels for ", product.item)))
     })
 }
 
@@ -135,4 +141,24 @@ export const fetchProducts = async() =>
 {
     const apiData = await API.graphql({query: listProducts})
     return apiData.data.listProducts.items
+}
+
+const fetchProductImageUrl = async(query ) =>
+{
+    const imageUrl = await fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=1`, {
+        headers: {
+            authorization: "563492ad6f9170000100000185a2d47e349b4807a2a2fd2a39b98ed1"
+        }
+    })
+    .then(resp =>
+    {
+        return resp.json()
+    })
+    .then(data =>
+    {
+        return data.error//data.photos[0].src.original
+    })
+    .catch(console.log)
+    
+    return imageUrl
 }

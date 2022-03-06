@@ -10,6 +10,8 @@ import {fetchWarehouseData, generateWarehouse, resetWarehouse} from "./databaseF
 import ShoppingCart from "./Components/ShoppingCart";
 import {Container, Navbar} from "react-bootstrap";
 import {Launcher} from 'react-chat-window'
+import products from "./Components/Products";
+import ChatLauncher from "./Components/ChatLauncher";
 
 const App = () =>
 {
@@ -44,6 +46,7 @@ const App = () =>
     {
         setAllProducts(generateWarehouse())
     }
+
     
     const addToBasket = (item, size) =>
     {
@@ -69,6 +72,28 @@ const App = () =>
         }
     }
     
+    const reduceProductStock = (boughtProduct) =>
+    {
+        const boughtProductIndex = allProducts.findIndex( x => x.id === boughtProduct.id)
+        const updatedProduct = allProducts[boughtProductIndex]
+        --updatedProduct.stockLevels[boughtProduct.size]
+        
+        setAllProducts( prevAllProducts =>
+        {
+            prevAllProducts[boughtProductIndex] = updatedProduct
+            return prevAllProducts
+        })
+    }
+    
+    const placeOrder = () =>
+    {
+        for(let product of basket)
+        {
+            reduceProductStock(product)
+        }
+        setBasket([])
+    }
+    
     const shallowCompare = (obj1, obj2) =>
             Object.keys(obj1).length === Object.keys(obj2).length &&
             Object.keys(obj1).every(key =>
@@ -76,7 +101,7 @@ const App = () =>
             );
     
     return (
-            <>
+            <div style={{padding:"1em", color: '07004D'}}>
                 <Navbar bg="light" expand="lg">
                     <Container>
                         <Navbar.Brand href="#home">Golden Shoe</Navbar.Brand>
@@ -90,7 +115,7 @@ const App = () =>
                         </div>
                     </Container>
                 </Navbar>
-                <ShoppingCart show={show} handleClose={handleClose} basket={basket} removeFromBasket={removeFromBasket}/>
+                <ShoppingCart show={show} handleClose={handleClose} basket={basket} removeFromBasket={removeFromBasket} placeOrder={placeOrder}/>
                 
                 <BrowserRouter>
                     <Routes>
@@ -98,15 +123,8 @@ const App = () =>
                         <Route path="/" element={<ProductsPage allProducts={allProducts}/>}/>
                     </Routes>
                 </BrowserRouter>
-                <Launcher
-                        agentProfile={{
-                            teamName: 'Customer Support',
-                            imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
-                        }}
-                        messageList={[{author:'them', type: 'text', data: {text: "hello"}}]}
-                        showEmoji
-                />
-            </>
+                <ChatLauncher />
+            </div>
     );
 }
 
