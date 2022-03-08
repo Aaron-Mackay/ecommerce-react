@@ -1,0 +1,18 @@
+.size-grid {
+    padding: 0em 2em 0em 2em;
+    justify-content: center;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30px);
+    text-align: center;
+    gap: 2px;
+}
+
+.size-grid > div {
+    border: 2px solid black;
+    font-size: 12px;
+}
+
+.card-body {
+    padding: 0.5rem 1rem;
+}

@@ -31,7 +31,7 @@ export const generateWarehouse = () =>
             // })
             
             const stockLevels = {}
-            for(let i = 1; i <= 3; i++)
+            for(let i = 6; i <= 11; i++)
             {
                 stockLevels[i] = 1
             }

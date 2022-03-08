@@ -1,4 +1,3 @@
-import './Filters.css';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import Dropdown from "react-bootstrap/Dropdown";
@@ -36,7 +35,7 @@ const Filters = ({availableSizes, filtersObject, unfilteredPriceLimits}) =>
                 <PriceRangeFilter priceRangeValues={priceRangeValues}
                                   unfilteredPriceLimits={unfilteredPriceLimits}
                                   setPriceRangeValues={setPriceRangeValues}/>
-                <div>
+                <div style={{textAlign: "center"}}>
                     <h5>Select size:</h5>
                     <ToggleButtonGroup type="checkbox" value={enteredSizes} onChange={sizesChangeHandler}>
                         {availableSizes.map((size, i) =>

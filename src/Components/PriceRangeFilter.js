@@ -1,4 +1,3 @@
-import './Filters.css';
 import {Range, getTrackBackground} from 'react-range'
 
 const PriceRangeFilter = ({priceRangeValues, unfilteredPriceLimits, setPriceRangeValues}) =>
@@ -9,7 +8,7 @@ const PriceRangeFilter = ({priceRangeValues, unfilteredPriceLimits, setPriceRang
     const STEP = 0.1;
     
     return (
-            <>
+            <div style={{textAlign: "center"}}>
                 <h5>Select price:</h5>
                 <Range
                         values={priceRangeValues}
@@ -87,7 +86,7 @@ const PriceRangeFilter = ({priceRangeValues, unfilteredPriceLimits, setPriceRang
                                 </div>
                         )}
                 />
-            </>
+            </div>
     
     );
 }

@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card'
 import mockImage from '../mockImage.jpg'
+import './ProductCard.css';
 
 import Badge from 'react-bootstrap/Badge'
 import {LinkContainer} from 'react-router-bootstrap'
@@ -11,16 +12,25 @@ const ProductCard = ({item, price, stockLevels, salePrice, id, imageUrl}) =>
                 <Card style={{width: '18rem'}} bg={'secondary'} text={'white'}>
                     <Card.Img variant="top" src={imageUrl}/>
                     <Card.Body>
-                        <Card.Title>
+                        <h5 style={{margin: "0px"}}>
                             {item}
                             {salePrice ? <Badge bg="primary">On Sale</Badge> : ""}
-                        </Card.Title>
-                        <Card.Text>
-                            {Object.entries(stockLevels).filter(item => item[1] > 0).map(item => item[0]).join(", ")}
-                        </Card.Text>
+                        </h5>
                     </Card.Body>
                     <Card.Body>
-                        <Card.Text>
+                        <div className={"size-grid"}>
+                            {Object.entries(stockLevels).filter(stockLevel => stockLevel[1] > 0)
+                            .map(stockLevel =>
+                            {
+                                return <div style={{border: "5px solid black;"}}>
+                                    {stockLevel[0]}
+                                </div>
+                            })
+                            }
+                        </div>
+                    </Card.Body>
+                    <Card.Body>
+                        <Card.Text style={{textAlign: "end"}}>
                             £{salePrice || price} &nbsp;
                             <del>{salePrice ? "£" + price : ""}</del>
                         </Card.Text>
