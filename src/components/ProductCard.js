@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card'
-import mockImage from '../mockImage.jpg'
+import mockImage from '../images/mockImage.jpg'
 import './ProductCard.css';
 
 import Badge from 'react-bootstrap/Badge'

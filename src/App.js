@@ -4,14 +4,14 @@ import './App.css';
 import Button from 'react-bootstrap/Button';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import ProductsPage from "./Components/ProductsPage";
-import ProductPage from "./Components/ProductPage";
+import ProductsPage from "./components/ProductsPage";
+import ProductPage from "./components/ProductPage";
 import {fetchWarehouseData, generateWarehouse, resetWarehouse} from "./databaseFunctions";
-import ShoppingCart from "./Components/ShoppingCart";
+import ShoppingCart from "./components/ShoppingCart";
 import {Container, Navbar} from "react-bootstrap";
 import {Launcher} from 'react-chat-window'
-import products from "./Components/Products";
-import ChatLauncher from "./Components/ChatLauncher";
+import products from "./components/Products";
+import ChatLauncher from "./components/ChatLauncher";
 
 const App = () =>
 {
