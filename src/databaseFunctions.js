@@ -25,10 +25,6 @@ export const generateWarehouse = () =>
             newProduct.price = newProduct.item.length * 5
             newProduct.salePrice = (count % 3 === 0) ? Math.round(newProduct.price / 2) : null
             newProduct.imageUrl = 'https://picsum.photos/200'
-            // fetchProductImageUrl(newProduct.item)
-            // .then(src => {
-            //     newProduct.image = src
-            // })
             
             const stockLevels = {}
             for(let i = 6; i <= 11; i++)
@@ -141,24 +137,4 @@ export const fetchProducts = async() =>
 {
     const apiData = await API.graphql({query: listProducts})
     return apiData.data.listProducts.items
-}
-
-const fetchProductImageUrl = async(query ) =>
-{
-    const imageUrl = await fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=1`, {
-        headers: {
-            authorization: "563492ad6f9170000100000185a2d47e349b4807a2a2fd2a39b98ed1"
-        }
-    })
-    .then(resp =>
-    {
-        return resp.json()
-    })
-    .then(data =>
-    {
-        return data.error//data.photos[0].src.original
-    })
-    .catch(console.log)
-    
-    return imageUrl
 }
