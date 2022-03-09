@@ -3,16 +3,18 @@
 
     /* Grid styles */
     display: grid;
-    grid-template-columns: 8em auto;
+    grid-template-columns: 280px 1fr;
     grid-template-rows: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2em 2em;
+    gap: 30px;
     grid-template-areas:
     "filters products";
 }
 
 .filters {
+    width: min-content;
+
     grid-area: filters;
-    /* Photo by mnm.all on Unsplash */
+
     background-color: darkgrey;
     padding: 4rem 2rem;
     position: fixed;
