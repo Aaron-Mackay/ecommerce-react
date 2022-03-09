@@ -9,8 +9,8 @@ import {listProducts, listStockLevels} from "./graphql/queries";
 
 export const generateWarehouse = () =>
 {
-    const colours = ["Black", "White", "Pink", "Red", "Blue"]
-    const items = ["Shoes"]//, "Boots", "Trainers", "Slippers", "Formal Shoes"]
+    const colours = ["black", "white"]//, "pink", "red", "blue"]
+    const items = ["shoes"]//, "boots", "trainers", "slippers", "heels"]
     
     const products = [];
     
@@ -21,7 +21,7 @@ export const generateWarehouse = () =>
         {
             const newProduct = {}
             newProduct.id = count
-            newProduct.item = `${colour} ${item}`
+            newProduct.item = `${colour}-${item}`.toLowerCase()
             newProduct.price = newProduct.item.length * 5
             newProduct.salePrice = (count % 3 === 0) ? Math.round(newProduct.price / 2) : null
             newProduct.imageUrl = 'https://picsum.photos/200'
