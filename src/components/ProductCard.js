@@ -6,9 +6,9 @@ import Badge from 'react-bootstrap/Badge'
 import {LinkContainer} from 'react-router-bootstrap'
 import useImage from "./useImage";
 
-const ProductCard = ({item, price, stockLevels, salePrice, id, imageUrl}) =>
+const ProductCard = ({item, price, stockLevels, salePrice, id}) =>
 {
-    const {loading, error, image} = useImage(item)
+    const {loading, image} = useImage(item)
     
     const toTitleCase = (str) =>
     {
@@ -21,22 +21,21 @@ const ProductCard = ({item, price, stockLevels, salePrice, id, imageUrl}) =>
     return (
             <LinkContainer to={`/product/${id}`}>
                 <Card style={{width: '18rem'}} bg={'secondary'} text={'white'}>
-                    <img  variant="top" src={loading ? mockImage : image}
-                    />
+                    <img variant="top" src={loading ? mockImage : image} style={{height: "100%"}} alt={"product"}/>
                     <Card.Body>
                         <h5 style={{margin: "0px"}}>
-                            {toTitleCase(item)}
+                            {toTitleCase(item)}&nbsp;
                             {salePrice ? <Badge bg="primary">On Sale</Badge> : ""}
                         </h5>
                     </Card.Body>
                     <Card.Body>
                         <div className={"size-grid"}>
-                            {Object.entries(stockLevels).filter(stockLevel => stockLevel[1] > 0)
+                            {Object.entries(stockLevels)//.filter(stockLevel => stockLevel[1] > 0)
                             .map(stockLevel =>
                             {
-                                return <div style={{border: "5px solid black;"}}>
-                                    {stockLevel[0]}
-                                </div>
+                                return <div className={stockLevel[1] ? "sizeSquare" : "sizeSquare outOfStock"} >
+                                        {stockLevel[0]}
+                                    </div>
                             })
                             }
                         </div>
