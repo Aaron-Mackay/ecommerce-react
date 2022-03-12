@@ -4,7 +4,8 @@ import messageList from "react-chat-window/lib/components/MessageList";
 
 const ChatLauncher = () =>
 {
-    const [messageList, setMessageList] = useState([{author: 'them', type: 'text', data: {text: "Hi! This is an automated customer support bot, how can we help?"}}])
+    const greeting = "Hi! This is an automated customer support bot, here to help you with delivery tracking and refunds. What can we do for you?"
+    const [messageList, setMessageList] = useState([{author: 'them', type: 'text', data: {text: greeting}}])
     
     const onMessageWasSent = (userMessage) =>
     {

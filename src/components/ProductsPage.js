@@ -3,7 +3,6 @@ import './ProductsPage.css';
 
 import Products from './Products';
 import Filters from './Filters';
-import Chat from './Chat';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import cloneDeep from "lodash/cloneDeep";
 
@@ -79,7 +78,6 @@ const ProductsPage = ({allProducts: products}) =>
                              unfilteredPriceLimits={unfilteredPriceLimits}/>
                     <Products products={visibleProducts}/>
                 </div>
-                <Chat/>
             </>
     );
 }
