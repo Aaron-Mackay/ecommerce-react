@@ -9,8 +9,8 @@ import {listProducts, listStockLevels} from "./graphql/queries";
 
 export const generateWarehouse = () =>
 {
-    const colours = ["black", "white"]//, "pink", "red", "blue"]
-    const items = ["shoes"]//, "boots", "trainers", "slippers", "heels"]
+    const colours = ["black", "white", "pink", "red", "blue"]
+    const items = ["shoes", "boots", "trainers", "heels"]
     
     const products = [];
     
@@ -29,7 +29,7 @@ export const generateWarehouse = () =>
             const stockLevels = {}
             for(let i = 6; i <= 11; i++)
             {
-                stockLevels[i] = 1
+                stockLevels[i] = (Math.random() > 0.2) ? 1 : 0
             }
             
             newProduct.stockLevels = stockLevels
