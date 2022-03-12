@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Launcher} from "react-chat-window";
-import messageList from "react-chat-window/lib/components/MessageList";
 
 const ChatLauncher = () =>
 {

@@ -48,7 +48,6 @@ const App = () =>
     
     const addToBasket = (item, size) =>
     {
-        // todo reduce stock
         const selectedItem = {...item}
         delete selectedItem.stockLevels
         selectedItem.size = size
@@ -124,7 +123,7 @@ const App = () =>
                         <Route path="/" element={<ProductsPage allProducts={allProducts}/>}/>
                     </Routes>
                 </BrowserRouter>
-                <ChatLauncher />
+                <ChatLauncher/>
             </div>
     );
 }
