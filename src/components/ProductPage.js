@@ -8,13 +8,25 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Image from 'react-bootstrap/Image'
 
 import {useParams} from "react-router-dom";
+import useImage from "./useImage";
+import mockImage from "../images/mockImage.jpg";
 
 const ProductPage = ({getProduct, addToBasket}) =>
 {
     const [selectedSize, setSelectedSize] = useState("")
     
+    const toTitleCase = (str) =>
+    {
+        return str.toLowerCase().split('-').map((word) =>
+        {
+            return (word.charAt(0).toUpperCase() + word.slice(1));
+        }).join(' ');
+    }
+    
     const {id} = useParams()
     const product = getProduct(id)
+    const {loading, image} = useImage(product.item)
+    const productName = toTitleCase(product.item)
     
     const selectHandler = (size) =>
     {
@@ -34,12 +46,12 @@ const ProductPage = ({getProduct, addToBasket}) =>
                         <Breadcrumb.Item>Products</Breadcrumb.Item>
                     </LinkContainer>
                     <Breadcrumb.Item active>
-                        {product.item}
+                        {productName}
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                <h1 className={'product-header'}>{product.item}</h1>
+                <h1 className={'product-header'}>{productName}</h1>
                 <div className={'product-details'}>
-                    <Image className={'productImage'} rounded src={product.imageUrl}/>
+                    <Image className={'productImage'} rounded src={loading ? mockImage : image} style={{height: "100%"}}/>
                     <div className={'productDesc'}>
                         <p >
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation

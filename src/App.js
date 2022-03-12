@@ -9,8 +9,6 @@ import ProductPage from "./components/ProductPage";
 import {fetchWarehouseData, generateWarehouse, resetWarehouse} from "./databaseFunctions";
 import ShoppingCart from "./components/ShoppingCart";
 import {Container, Navbar} from "react-bootstrap";
-import {Launcher} from 'react-chat-window'
-import products from "./components/Products";
 import ChatLauncher from "./components/ChatLauncher";
 
 const App = () =>
@@ -94,6 +92,8 @@ const App = () =>
         setBasket([])
     }
     
+    const itemCount = basket.length
+    
     const shallowCompare = (obj1, obj2) =>
             Object.keys(obj1).length === Object.keys(obj2).length &&
             Object.keys(obj1).every(key =>
@@ -109,8 +109,9 @@ const App = () =>
                             <Button variant="primary" onClick={setWarehouseFromLocal}>
                                 Reset DB
                             </Button>
-                            <Button variant="primary" onClick={handleShow}>
-                                Shopping Cart
+                            <Button variant="primary" onClick={handleShow} style={{display:"flex"}}>
+                                Shopping Cart&nbsp;
+                                {itemCount ? <div className={"itemCount"}>{itemCount}</div> : ""}
                             </Button>
                         </div>
                     </Container>

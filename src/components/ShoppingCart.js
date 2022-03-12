@@ -1,42 +1,29 @@
 import React from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Card from "react-bootstrap/Card";
-import CloseButton from "react-bootstrap/CloseButton";
 import Button from "react-bootstrap/Button";
+import ShoppingCartProduct from "./ShoppingCartProduct";
 
 const ShoppingCart = ({show, handleClose, basket, removeFromBasket, placeOrder}) =>
 {
+    const totalPrice = basket.reduce((prev, curr) => prev + (curr.salePrice || curr.price),0)
+    
     return (
             <Offcanvas show={show} onHide={handleClose} placement={"end"}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Shopping Cart</Offcanvas.Title>
                 </Offcanvas.Header>
-                <Offcanvas.Body>
-                    {basket.map((product, i) =>
-                    {
-                        return <Card style={{width: '18rem'}} key={i}>
-                            <Card.Img variant="top" src="holder.js/100px180"/>
-                            <Card.Body>
-                                <Card.Title>£{product.salePrice || product.price}</Card.Title>
-                                <Card.Text>
-                                    {product.item}
-                                    <br/>
-                                    Size: {product.size}
-                                </Card.Text>
-                                <CloseButton onClick={() => removeFromBasket(product)}/>
-                            </Card.Body>
-                        </Card>
-                    })}
-                </Offcanvas.Body>
                 {basket.length > 0 ?
-                        <Offcanvas.Body>
-                            <Button variant="primary" onClick={placeOrder}>
+                        <Offcanvas.Body style={{backgroundColor: "lightgrey", display:"flex", flexGrow: "0"}}>
+                            <h3 style={{marginBottom:"0"}}>Total: £{totalPrice.toFixed(2)}</h3>
+                            <Button variant="primary" onClick={placeOrder} style={{marginLeft:"auto"}}>
                                 Checkout
                             </Button>
                         </Offcanvas.Body>
                         : ""
                 }
-            
+                <Offcanvas.Body>
+                    {basket.map((product, i) => <ShoppingCartProduct product={product} removeFromBasket={removeFromBasket} i={i}/>)}
+                </Offcanvas.Body>
             </Offcanvas>
     )
 }

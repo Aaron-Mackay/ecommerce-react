@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 
 const Products = ({products}) =>
 {
-    const PRODUCTS_PER_PAGE = 20
+    const PRODUCTS_PER_PAGE = 10
     const [activePage, setActivePage] = useState(1)
     
     let items = [];
