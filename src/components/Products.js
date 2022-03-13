@@ -50,7 +50,10 @@ const Products = ({products}) =>
                             )
                             : "No products match your filters"}
                 </div>
-                <Pagination size="sm">{items}</Pagination>
+     
+                    <Pagination size="sm" style={{height:"min-content", width: "min-content", alignContent:"center"}}>{items}</Pagination>
+  
+                
             </div>
     );
 }

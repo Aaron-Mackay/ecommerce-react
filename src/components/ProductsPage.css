@@ -11,16 +11,17 @@
 
 .filters {
     width: min-content;
+    height: min-content;
 
     grid-area: filters;
 
     background-color: darkgrey;
     padding: 3rem 2rem;
-    position: fixed;
+    position: sticky;
+    top:10px;
     /* Grid styles */
     display: grid;
     align-items: center;
-    grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
     row-gap: 2em;
 }
 
@@ -89,17 +90,18 @@
         /*top: 50%;*/
         grid-template-columns: 1fr;
     }
+
+    .active {
+        display: grid;
+        width: 100%;
+
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    .inactive {
+        display: none;
+    }
 }
 
-.active {
-    display: grid;
-    width: 100%;
-
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-
-.inactive {
-    display: none;
-}
