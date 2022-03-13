@@ -91,7 +91,7 @@
         grid-template-columns: 1fr;
     }
 
-    .active {
+    .activeF {
         display: grid;
         width: 100%;
 
@@ -100,7 +100,7 @@
         z-index: 2;
     }
 
-    .inactive {
+    .inactiveF {
         display: none;
     }
 }

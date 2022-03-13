@@ -24,10 +24,9 @@ export const generateWarehouse = () =>
             newProduct.item = `${colour}-${item}`.toLowerCase()
             newProduct.price = newProduct.item.length * 5
             newProduct.salePrice = (count % 3 === 0) ? Math.round(newProduct.price / 2) : null
-            newProduct.imageUrl = 'https://picsum.photos/200'
             
             const stockLevels = {}
-            for(let i = 6; i <= 11; i++)
+            for(let i = 5; i <= 9; i++)
             {
                 stockLevels[i] = (Math.random() > 0.2) ? 1 : 0
             }

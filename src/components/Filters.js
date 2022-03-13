@@ -46,7 +46,7 @@ const Filters = ({availableSizes, filtersObject, unfilteredPriceLimits}) =>
     
     return (
             <>
-                <div className={mobileFilterVisible ? "filters active" : "filters"}>
+                <div className={mobileFilterVisible ? "filters activeF" : "filters"}>
                     <PriceRangeFilter priceRangeValues={priceRangeValues}
                                       unfilteredPriceLimits={unfilteredPriceLimits}
                                       setPriceRangeValues={setPriceRangeValues}/>
@@ -83,7 +83,7 @@ const Filters = ({availableSizes, filtersObject, unfilteredPriceLimits}) =>
                     </div>
                     
                 </div>
-                <div className={mobileFilterVisible ? "mobileFilters inactive" : "mobileFilters active"} onClick={openMobileMenu}>
+                <div className={mobileFilterVisible ? "mobileFilters inactiveF" : "mobileFilters activeF"} onClick={openMobileMenu}>
                     Filter & Sort
                 </div>
             </>
