@@ -29,11 +29,12 @@ const App = () =>
         localStorage.setItem("basket", JSON.stringify(basket))
     }, [basket])
     
-    // useEffect(() =>
-    // {
-    //     fetchWarehouseData()
-    //     .then(setAllProducts)
-    // }, []);
+    // Comment out for local only function
+    useEffect(() =>
+    {
+        fetchWarehouseData()
+        .then(setAllProducts)
+    }, []);
     
     const getProduct = (id) =>
     {
@@ -105,9 +106,10 @@ const App = () =>
                     <Container>
                         <Navbar.Brand href="#home">Golden Shoe</Navbar.Brand>
                         <div className="justify-content-end">
-                            <Button variant="primary" onClick={setWarehouseFromLocal}>
-                                Reset DB
-                            </Button>
+                            {/* Replace "resetWarehouse" with " setWarehouseFromLocal" and uncomment for Testing */}
+                            {/*<Button variant="primary" onClick={resetWarehouse}>*/}
+                            {/*    Reset DB*/}
+                            {/*</Button>*/}
                             <Button variant="primary" onClick={handleShow} style={{display:"flex"}}>
                                 Shopping Cart&nbsp;
                                 {itemCount ? <div className={"itemCount"}>{itemCount}</div> : ""}

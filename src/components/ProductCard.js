@@ -31,9 +31,9 @@ const ProductCard = ({item, price, stockLevels, salePrice, id}) =>
                     <Card.Body>
                         <div className={"size-grid"}>
                             {Object.entries(stockLevels)//.filter(stockLevel => stockLevel[1] > 0)
-                            .map(stockLevel =>
+                            .map((stockLevel, i) =>
                             {
-                                return <div className={stockLevel[1] ? "sizeSquare" : "sizeSquare outOfStock"} >
+                                return <div className={stockLevel[1] ? "sizeSquare" : "sizeSquare outOfStock"} key={i}>
                                         {stockLevel[0]}
                                     </div>
                             })

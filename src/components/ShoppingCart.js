@@ -65,7 +65,7 @@ const ShoppingCart = ({show, handleClose, basket, removeFromBasket, placeOrder})
                         : ""
                 }
                 <Offcanvas.Body style={{margin: "auto"}}>
-                    {basket.map((product, i) => <ShoppingCartProduct product={product} removeFromBasket={removeFromBasket} i={i}/>)}
+                    {basket.map((product, i) => <ShoppingCartProduct product={product} removeFromBasket={removeFromBasket} i={i} key={i}/>)}
                 </Offcanvas.Body>
             </Offcanvas>
     )
