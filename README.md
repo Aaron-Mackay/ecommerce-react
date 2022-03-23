@@ -1,4 +1,4 @@
-# Golden Shoe E-Commerce Site
+# E-Commerce Site
 ## Tech Stack
 - React
 - AWS Amplify
