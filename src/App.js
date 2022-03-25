@@ -32,8 +32,9 @@ const App = () =>
     // Comment out for local only function
     useEffect(() =>
     {
-        fetchWarehouseData()
-        .then(setAllProducts)
+        setAllProducts(generateWarehouse())
+        // fetchWarehouseData()
+        // .then(setAllProducts)
     }, []);
     
     const getProduct = (id) =>
