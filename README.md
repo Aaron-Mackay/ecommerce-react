@@ -1,4 +1,7 @@
 # E-Commerce Site
+
+Hosted at https://www.golden-shoe.co.uk/
+
 ## Tech Stack
 - React
 - AWS Amplify
